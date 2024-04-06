@@ -1,5 +1,5 @@
 CC = gcc
-DEBFLAGS = -g -Wall -Wextra -Wpedantic
+DEBFLAGS = -g -Og -Wall -Wextra -Wpedantic
 OPTFLAGS = -O2
 
 BINDIR = bin
@@ -13,7 +13,7 @@ OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
 all: $(DEBUG)
 
-run:
+run: $(DEBUG)
 	$(DEBUG)
 
 $(DEBUG): $(OBJS)
@@ -22,8 +22,8 @@ $(DEBUG): $(OBJS)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(DEBFLAGS) -c -o $@ $^
 
-$(RELEASE): $(SRCS)
-	$(CC) $(OPTFLAGS) -o $@ $^
+release: $(SRCS)
+	$(CC) $(OPTFLAGS) -o $(RELEASE) $^
 
 clean:
 	rm $(BINDIR)/* $(OBJDIR)/*
