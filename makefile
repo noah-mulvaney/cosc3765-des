@@ -1,3 +1,8 @@
+# COSC3765 Final Project: DES Implementation
+# Makefile
+# Noah Mulvaney
+# 7 Apr 2024
+
 CC = gcc
 DEBFLAGS = -g -Og -Wall -Wextra -Wpedantic
 OPTFLAGS = -O2
@@ -23,7 +28,8 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(DEBFLAGS) -c -o $@ $^
 
 release: $(SRCS)
+	mkdir -p $(BINDIR)
 	$(CC) $(OPTFLAGS) -o $(RELEASE) $^
 
 clean:
-	rm $(BINDIR)/* $(OBJDIR)/*
+	rm -f $(BINDIR)/* $(OBJDIR)/*

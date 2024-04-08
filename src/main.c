@@ -1,6 +1,7 @@
-// main.c
-// Noah Mulvaney, nmulvane@uywo.edu
-// 4 Apr 2024
+// COSC3765 Final Project: DES Implementation
+// Main File
+// Noah Mulvaney
+// 7 Apr 2024
 
 #include <stdio.h>
 
