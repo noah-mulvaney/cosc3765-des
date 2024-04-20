@@ -13,10 +13,12 @@
 #define CELL_LEN 6
 #define NIBBLE_LEN 4
 
+typedef unsigned char ubyte;
+
 // print a block
-void print_block(char* adr, int len);
+void print_block(ubyte* adr, int len);
 
 // Copy bit from src to dest
-void bit(int dest_bit, int src_bit, char* dest_adr, char* src_adr);
+void bit(int dest_bit, int src_bit, ubyte* dest_adr, ubyte* src_adr);
 
 #endif

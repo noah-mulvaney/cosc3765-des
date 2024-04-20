@@ -8,7 +8,7 @@
 
 #include "block.h"
 
-void print_block(char* adr, int len) {
+void print_block(ubyte* adr, int len) {
   assert(len < BLOCK_LEN);
 
   for (int i = 0; i < len; ++i) {
@@ -18,7 +18,7 @@ void print_block(char* adr, int len) {
   printf("\n");
 }
 
-void bit(int dest_bit, int src_bit, char* dest_adr, char* src_adr) {
+void bit(int dest_bit, int src_bit, ubyte* dest_adr, ubyte* src_adr) {
   assert(dest_bit < BLOCK_LEN && src_bit < BLOCK_LEN);
 
   char src_value = (src_adr[src_bit / 8] >> ((7 - src_bit) % 8)) & 0x1;
