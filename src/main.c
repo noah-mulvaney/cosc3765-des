@@ -6,12 +6,14 @@
 #include <stdio.h>
 
 #include "block.h"
+#include "primitive.h"
 
 void test_block();
+void test_primitive();
 
 int main(int argc, char** argv) {
   printf("Hello, world!\n");
-  test_block();
+  test_primitive();
 
   return 0;
 }
@@ -27,4 +29,21 @@ void test_block() {
 
     print_block(tmp, 16);
   }
+}
+
+void test_primitive() {
+  ubyte test[] = {0x80, 0x55, 0x01, 0xaa};
+  print_block(test, 32);
+
+  ubyte expanded[6];
+  expand(expanded, test);
+  print_block(expanded, 48);
+
+  ubyte selected[4];
+  select(selected, expanded);
+  print_block(selected, 32);
+
+  ubyte permuted[4];
+  perm(permuted, selected);
+  print_block(permuted, 32);
 }

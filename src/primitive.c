@@ -4,6 +4,7 @@
 // 20 Apr 2024
 
 #include <assert.h>
+#include <stdint.h>
 
 #include "block.h"
 #include "primitive.h"
@@ -39,15 +40,23 @@ void expand(ubyte* dest_chunk, ubyte* src_semiblock) {
     bit(i, EXPANSION_TABLE[i] - 1, dest_chunk, src_semiblock);
 }
 
-void select(int s, ubyte* dest_nibble, ubyte* src_cell) {
-  int i = ((src_cell[0] & 0x20) >> 4) + (src_cell[0] & 0x01);
-  int j = (src_cell[0] & 0x1e) >> 1;
+// FIX
+void select(ubyte* dest_semiblock, ubyte* src_chunk) {
+  uint64_t chunk = 0;
+  for (int i = 0; i < 6; ++i)
+    chunk += src_chunk[i] << (6 * (5 - i));
 
-  assert(i >= 0 && i < 4);
-  assert(j >= 0 && j < 16);
+  for (int s = 0; s < 8; ++s) {
+    int i = ((chunk & (0x20 << (6 * (7 - i)))) + (chunk & 0x01 << (6 * (7 - i))))
+      >> (6 * (7 - i));
+    int j = (chunk & (0x1e << (6 * (7 - i)))) >> (6 * (7 - i) + 1);
 
-  // ADD tables 2 to 8
-  *dest_nibble = SELECT_TABLES[0][i][j];
+    assert(i >= 0 && i < 4);
+    assert(j >= 0 && j < 16);
+
+    // ADD tables 2 to 8
+    dest_semiblock[s / 2] &= SELECT_TABLES[0][i][j] << ((s + 1) % 2);
+  }
 }
 
 void perm(ubyte* dest_semiblock, ubyte* src_semiblock) {

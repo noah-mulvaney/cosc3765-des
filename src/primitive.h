@@ -10,7 +10,7 @@
 
 void expand(ubyte* dest_chunk, ubyte* src_semiblock);
 
-void select(int s, ubyte* dest_nibble, ubyte* src_cell);
+void select(ubyte* dest_semiblock, ubyte* src_chunk);
 
 void perm(ubyte* dest_semiblock, ubyte* src_semiblock);
 
